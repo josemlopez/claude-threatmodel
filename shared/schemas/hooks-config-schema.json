@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "hooks-config-schema.json",
+  "title": "Threat Model Hooks Configuration Schema",
+  "description": "Schema for configuring pre-plan and post-plan security hooks",
+
+  "definitions": {
+    "risk_level": {
+      "type": "string",
+      "enum": ["none", "low", "medium", "high", "critical"],
+      "description": "Risk level threshold for hook actions"
+    },
+    "skill_name": {
+      "type": "string",
+      "pattern": "^tm-[a-z]+$",
+      "description": "Name of a threat modeling skill (e.g., tm-quick, tm-full, tm-threats)"
+    }
+  },
+
+  "type": "object",
+  "properties": {
+    "hooks": {
+      "type": "object",
+      "description": "Hook configuration for automated threat analysis",
+      "properties": {
+        "pre_plan": {
+          "type": "object",
+          "description": "Hook executed before entering plan mode (EnterPlanMode)",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": true,
+              "description": "Enable or disable the pre-plan hook"
+            },
+            "skill": {
+              "$ref": "#/definitions/skill_name",
+              "default": "tm-quick",
+              "description": "Skill to execute for pre-plan analysis"
+            },
+            "block_on": {
+              "$ref": "#/definitions/risk_level",
+              "default": "critical",
+              "description": "Block plan mode if risk level meets or exceeds this threshold. Use 'none' to never block."
+            },
+            "focus_on_changed": {
+              "type": "boolean",
+              "default": true,
+              "description": "Scope analysis to files being changed (if detectable)"
+            },
+            "timeout_seconds": {
+              "type": "integer",
+              "minimum": 10,
+              "maximum": 300,
+              "default": 60,
+              "description": "Maximum execution time for the pre-plan hook"
+            }
+          },
+          "additionalProperties": false
+        },
+        "post_plan": {
+          "type": "object",
+          "description": "Hook executed after exiting plan mode (ExitPlanMode)",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false,
+              "description": "Enable or disable the post-plan hook"
+            },
+            "skill": {
+              "$ref": "#/definitions/skill_name",
+              "default": "tm-full",
+              "description": "Skill to execute for post-plan analysis"
+            },
+            "compliance": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "owasp",
+                  "soc2",
+                  "pci-dss",
+                  "hipaa",
+                  "gdpr",
+                  "iso27001",
+                  "nist"
+                ]
+              },
+              "default": [],
+              "description": "Compliance frameworks to include in post-plan analysis"
+            },
+            "auto_baseline": {
+              "type": "boolean",
+              "default": true,
+              "description": "Automatically create a baseline snapshot after post-plan analysis"
+            },
+            "generate_report": {
+              "type": "boolean",
+              "default": true,
+              "description": "Generate a report after post-plan analysis"
+            },
+            "timeout_seconds": {
+              "type": "integer",
+              "minimum": 30,
+              "maximum": 600,
+              "default": 180,
+              "description": "Maximum execution time for the post-plan hook"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
