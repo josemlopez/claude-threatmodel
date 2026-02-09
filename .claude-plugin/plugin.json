@@ -7,7 +7,7 @@
     "url": "https://github.com/josemlopez"
   },
   "homepage": "https://github.com/josemlopez/claude-threatmodel",
-  "repository": "https://github.com/florianbuetow/claude-threatmodel",
+  "repository": "https://github.com/josemlopez/claude-threatmodel",
   "license": "MIT",
   "keywords": ["security", "threat-modeling", "STRIDE", "OWASP", "compliance"]
 }
