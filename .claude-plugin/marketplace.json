@@ -11,7 +11,7 @@
   "plugins": [
     {
       "name": "threatmodel",
-      "source": ".",
+      "source": "./",
       "description": "Automated threat modeling for Claude Code. Runs security assessments via subagents when you approve implementation plans.",
       "version": "1.0.0",
       "category": "security",
