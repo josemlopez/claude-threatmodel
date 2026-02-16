@@ -1,0 +1,21 @@
+{
+  "name": "josemlopez",
+  "owner": {
+    "name": "Jose M. Lopez",
+    "email": "josemlopez@users.noreply.github.com"
+  },
+  "metadata": {
+    "description": "Automated threat modeling plugin for Claude Code with STRIDE analysis and compliance checks",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "threatmodel",
+      "source": "./",
+      "description": "Automated threat modeling for Claude Code. Runs security assessments via subagents when you approve implementation plans.",
+      "version": "1.0.0",
+      "category": "security",
+      "keywords": ["security", "threat-modeling", "STRIDE", "OWASP", "compliance"]
+    }
+  ]
+}
